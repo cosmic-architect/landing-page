@@ -18,43 +18,44 @@
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Tailwind config for custom colors + fonts -->
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              material: {
-                "10": '#090A10',
-                "20": '#10141B',
-                "30": '#1F242C',
-                "50": '#5A5E6B',
-                "70": '#A6ABB5',
-                "110": '#EFF2F5'
-              },
-              purple: {
-                "10": '#',
-                "20": '#',
-                "30": '#402164',
-                "40": '#4C3069',
-                "50": '#715791',
-                "60": '#9C7CAF',
-                "70": '#C4A4D5',
-                "80": '#D9C1EB',
-                "90": '#E5D6F0',
-                "100": '#E5D6F0'
-              },
-              red: { "70": '#CF665F' },
-              green: { "70": '#91C488' },
-              pink: { "70": '#ED87A0' }
+  <!-- Tailwind config for custom colors + fonts -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            material: {
+              "10": '#090A10',
+              "20": '#10141B',
+              "30": '#1F242C',
+              "40": '#323842',
+              "50": '#5A5E6B',
+              "70": '#A6ABB5',
+              "110": '#EFF2F5'
             },
-            fontFamily: {
-              inter: ['Inter', 'sans-serif']
-            }
+            purple: {
+              "10": '#',
+              "20": '#',
+              "30": '#402164',
+              "40": '#4C3069',
+              "50": '#715791',
+              "60": '#9C7CAF',
+              "70": '#C4A4D5',
+              "80": '#D9C1EB',
+              "90": '#E5D6F0',
+              "100": '#E5D6F0'
+            },
+            red: { "70": '#CF665F' },
+            green: { "70": '#91C488' },
+            pink: { "70": '#ED87A0' }
           },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif']
+          }
         },
-      }
-    </script>
+      },
+    }
+  </script>
 
   <!-- Custom fonts and extra styles -->
   <style>
@@ -81,6 +82,10 @@
         --vignette-stop: 35%;
       }
     }
+    #Zc_SignupSuccess {
+      opacity: 1 !important;
+      display: flex !important;
+    }
   </style>
 </head>
 <body class="relative min-h-screen bg-material-10"
@@ -101,94 +106,114 @@
 
     <!-- MAIN -->
     <main class="relative flex-1 w-full flex items-center justify-center p-8">
-      <!-- Instead of a div with "relative w-full h-full", use absolute positioning -->
+
+      <!-- Image -->
       <div class="absolute inset-0 flex items-center justify-center">
         <img src="assets/coming-soon.svg" alt="Coming soon..." class="max-h-[512px] p-5 md:p-0 h-full object-contain" />
       </div>
+      
     </main>
 
-    <!-- EMAIL CAPTURE SECTION -->
-    <section class="relative z-20 w-full flex items-center justify-center px-5 pt-5 md:pt-8 md:pt-10">
-      <!-- 
-        1) We keep Zoho's form action + hidden fields 
-        2) We keep your styling + classes 
-        3) We reference Zoho's script below 
-      -->
-      <form 
-        method="POST" 
-        id="zcampaignOptinForm" 
-        action="https://zcv2-zcmp.maillist-manage.eu/weboptin.zc" 
-        target="_zcSignup"
-        onsubmit="runOnFormSubmit_sf3z28ed333ab4c7bbbce48591a1e957f26fef74c6e7f13001caeafbc2bc7e851608(this)"
-        class="flex flex-col items-center bg-material-20 bg-opacity-60 p-3 rounded-[6px] border border-material-50 w-full max-w-md"
-      >
-        <!-- Label -->
-        <label for="CONTACT_EMAIL" class="block text-material-110 mb-3">
-          Enter your email for updates:
-        </label>
+    <!-- Ensure your custom modal overlay exists -->
+     <div class="hidden">
 
-        <!-- Input + Button in one row -->
-        <div class="flex gap-3 w-full">
-          <!-- 
-            Zoho expects name="CONTACT_EMAIL". 
-            Also replaced "type='email'" with 'text' 
-            because Zoho does validation. 
-            But you can keep "type='email'" if you like.
-          -->
-          <input
-            type="email"
-            id="EMBED_FORM_EMAIL_LABEL"
-            name="CONTACT_EMAIL"
-            placeholder="Your email address"
-            required
-            class="bg-black bg-opacity-60 border border-material-50 rounded-[3px] text-sm text-purple-90 px-3 py-2 w-full focus:border-purple-50 focus:outline-none"
-          />
+       <div id="customSuccessModalOverlay" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50 mx-5 mt-5 md:mt-8 md:mt-10" onclick="event.stopPropagation()">
+           <!-- Your existing custom modal goes here -->
+           <div id="Zc_SignupSuccess" class="flex flex-col items-center bg-material-10 bg-opacity-95 rounded-[9px] shadow-lg border border-green-70 p-6">
+             <!-- Icon -->
+             <svg width="64" height="64" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path d="M27.8751 7.12502C26.5165 5.76984 24.6766 5.00775 22.7577 5.00541C20.8387 5.00307 18.997 5.76066 17.6351 7.11252L16.0001 8.63127L14.3638 7.10752C13.0023 5.74978 11.1571 4.98852 9.23428 4.99122C7.31145 4.99391 5.46844 5.76034 4.1107 7.1219C2.75295 8.48345 1.9917 10.3286 1.99439 12.2514C1.99709 14.1743 2.76352 16.0173 4.12507 17.375L15.2938 28.7075C15.3869 28.802 15.4978 28.877 15.6201 28.9283C15.7424 28.9795 15.8737 29.0058 16.0063 29.0058C16.1389 29.0058 16.2702 28.9795 16.3925 28.9283C16.5149 28.877 16.6258 28.802 16.7188 28.7075L27.8751 17.375C29.2338 16.0155 29.997 14.1721 29.997 12.25C29.997 10.3279 29.2338 8.48454 27.8751 7.12502ZM26.4563 15.97L16.0001 26.575L5.53757 15.96C4.55295 14.9754 3.9998 13.64 3.9998 12.2475C3.9998 10.8551 4.55295 9.51964 5.53757 8.53502C6.52219 7.55041 7.85761 6.99725 9.25007 6.99725C10.6425 6.99725 11.978 7.55041 12.9626 8.53502L12.9876 8.56002L15.3188 10.7288C15.5039 10.901 15.7473 10.9967 16.0001 10.9967C16.2529 10.9967 16.4963 10.901 16.6813 10.7288L19.0126 8.56002L19.0376 8.53502C20.0229 7.55107 21.3586 6.99882 22.7511 6.99975C24.1436 7.00069 25.4786 7.55474 26.4626 8.54002C27.4465 9.5253 27.9988 10.8611 27.9978 12.2536C27.9969 13.646 27.4429 14.9811 26.4576 15.965L26.4563 15.97Z" class="fill-green-70"/>
+             </svg>
+             <!-- Success text -->
+             <div class="mt-3 text-center max-w-md">
+               <p class="block heading-font text-material-110 mb-5 text-3xl">Thank you for Signing Up</p>
+               <p class="text-lg text-material-110 opacity-90 mb-2">
+                 Please check your inbox to complete the process!
+               </p>
+               <p class="text-sm text-material-110 opacity-90">
+                 Be sure to look in your spam folder if you can't see it.
+               </p>
+               <p class="text-sm text-green-70 mt-6 uppercase">
+                 Your support means the world to me!
+               </p>
+             </div>
+           </div>
+       </div>
+     </div>
 
-          <!-- Zoho’s default is <input type="button" ...> with an ID for script. 
-              We can change it to 'submit' so the form posts normally. -->
-          <input
-            type="submit"
-            name="SIGNUP_SUBMIT_BUTTON"
-            id="zcWebOptin"
-            value="Subscribe"
-            class="bg-purple-30 border border-purple-40 rounded-[3px] text-purple-90 text-sm px-4 py-2 hover:bg-purple-40 hover:text-white transition-colors cursor-pointer"
-          />
+    <!-- JavaScript to close the modal -->
+    <script>
+      function closeCustomModal() {
+        // Add a nice transition class if needed
+        document.getElementById("customSuccessModalOverlay").classList.add("hidden");
+      }
+    </script>
+
+    <!-- Email Capture Section -->
+    <section id="sf3z28ed333ab4c7bbbce48591a1e957f26fef74c6e7f13001caeafbc2bc7e851608" data-type="signupform"
+      class="relative z-20 w-full flex items-center justify-center px-5 pt-5 md:pt-8 md:pt-10">
+        <div id="customForm" class="flex flex-col items-center bg-material-20 bg-opacity-60 p-3 rounded-[6px] border border-material-50 w-full max-w-md">
+          <div class="quick_form_7_css flex flex-col items-center w-full" name="SIGNUP_BODY">
+
+              <!-- Form Start -->
+              <form method="POST" id="zcampaignOptinForm" action="https://zcv2-zcmp.maillist-manage.eu/weboptin.zc" target="_zcSignup" class="flex flex-col items-center relative w-full">
+                <label for="CONTACT_EMAIL" class="block text-material-110 mb-3 text-center">
+                  Join Our Newsletter for Updates
+                </label>
+                
+                <!--  Input & Button -->
+                <div class="flex gap-3 w-full">
+                  <input type="email" placeholder="Your email address" required changeitem="SIGNUP_FORM_FIELD" name="CONTACT_EMAIL" id="EMBED_FORM_EMAIL_LABEL"
+                    class="bg-black bg-opacity-60 border border-material-50 rounded-[3px] text-sm text-purple-90 px-3 py-2 w-full focus:border-purple-50 focus:outline-none">
+                  <input type="submit" name="SIGNUP_SUBMIT_BUTTON" id="zcWebOptin" value="Join Now"
+                    class="bg-purple-30 border border-purple-40 rounded-[3px] text-purple-90 text-sm px-4 py-2 hover:bg-purple-40 hover:text-white transition-colors cursor-pointer">
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMsgDiv" class="opacity-0 bg-material-10 bg-opacity-95 border border-red-400 p-2 rounded-[3px] absolute w-full text-center bottom-[51px]">
+                  <span class="text-sm text-red-300 text-center">
+                    Oopsie! Please make sure the email below is correct!
+                  </span>
+                </div>
+
+                <!-- Hidden Fields -->
+                <input type="hidden" id="fieldBorder" value="">
+                <input type="hidden" id="submitType" name="submitType" value="optinCustomView">
+                <input type="hidden" id="emailReportId" name="emailReportId" value="">
+                <input type="hidden" id="formType" name="formType" value="QuickForm">
+                <input type="hidden" name="zx" id="cmpZuid" value="14ae5a36e7">
+                <input type="hidden" name="zcvers" value="2.0">
+                <input type="hidden" name="oldListIds" id="allCheckedListIds" value="">
+                <input type="hidden" id="mode" name="mode" value="OptinCreateView">
+                <input type="hidden" id="zcld" name="zcld" value="1357810d7bd9a269">
+                <input type="hidden" id="zctd" name="zctd" value="1357810d7bd9a159">
+                <input type="hidden" id="document_domain" value="">
+                <input type="hidden" id="zc_Url" value="zcv2-zcmp.maillist-manage.eu">
+                <input type="hidden" id="new_optin_response_in" value="2">
+                <input type="hidden" id="duplicate_optin_response_in" value="2">
+                <input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW">
+                <input type="hidden" id="zc_formIx" name="zc_formIx" value="3z28ed333ab4c7bbbce48591a1e957f26fef74c6e7f13001caeafbc2bc7e851608">
+                <input type="hidden" id="viewFrom" value="URL_ACTION">
+                <span style="display: none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
+              </form>
+              <iframe name="_zcSignup" style="display:none;"></iframe>
+
+          </div>
+          <div id="unauthPageTitle" class="hidden">Coming Soon Signup</div>
         </div>
-
-        <!-- ===========================
-            Zoho HIDDEN FIELDS
-            (REQUIRED FOR SUCCESS) 
-        ============================ -->
-        <input type="hidden" id="fieldBorder" value="">
-        <input type="hidden" id="submitType" name="submitType" value="optinCustomView">
-        <input type="hidden" id="emailReportId" name="emailReportId" value="">
-        <input type="hidden" id="formType" name="formType" value="QuickForm">
-        <input type="hidden" name="zx" id="cmpZuid" value="14ae5a36e7">
-        <input type="hidden" name="zcvers" value="2.0">
-        <input type="hidden" name="oldListIds" id="allCheckedListIds" value="">
-        <input type="hidden" id="mode" name="mode" value="OptinCreateView">
-        <input type="hidden" id="zcld" name="zcld" value="1357810d7bd9a269">
-        <input type="hidden" id="zctd" name="zctd" value="1357810d7bd9a159">
-        <input type="hidden" id="document_domain" value="">
-        <input type="hidden" id="zc_Url" value="zcv2-zcmp.maillist-manage.eu">
-        <input type="hidden" id="new_optin_response_in" value="0">
-        <input type="hidden" id="duplicate_optin_response_in" value="0">
-        <input type="hidden" name="zc_trackCode" id="zc_trackCode" value="ZCFORMVIEW">
-        <input type="hidden" id="zc_formIx" name="zc_formIx" value="3z28ed333ab4c7bbbce48591a1e957f26fef74c6e7f13001caeafbc2bc7e851608">
-        <input type="hidden" id="viewFrom" value="URL_ACTION">
-        <span style="display: none" id="dt_CONTACT_EMAIL">1,true,6,Contact Email,2</span>
-      </form>
+        <!-- <img src="https://zcv2-zcmp.maillist-manage.eu/images/spacer.gif" id="refImage" onload="referenceSetter(this)"> -->
+      <input type="hidden" id="signupFormType" value="QuickForm_Horizontal">
+      <div id="zcOptinOverLay" oncontextmenu="return false" style="display:none; text-align: center; background-color: rgb(0, 0, 0); opacity: 0.5; z-index: 100; position: fixed; width: 100%; top: 0px; left: 0px; height: 988px;"></div>
+      <div id="zcOptinSuccessPopup" style="display:none; z-index: 9999; width: 800px; height: 40%; top: 84px; position: fixed; left: 26%; background-color: #FFFFFF; border-color: #E6E6E6; border-style: solid; border-width: 1px; box-shadow: 0 1px 10px #424242; padding: 35px;">
+        <span style="position: absolute; top: -16px; right:-14px; z-index:99999; cursor: pointer;" id="closeSuccess">
+          <img src="https://zcv2-zcmp.maillist-manage.eu/images/videoclose.png">
+        </span>
+        <div id="zcOptinSuccessPanel"></div>
+      </div>
     </section>
 
-    <!-- 
-      Zoho Scripts 
-      (must be placed AFTER the form to initialize)
-    -->
-    <script
-      type="text/javascript"
-      src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js"
-      onload="setupSF('sf3z28ed333ab4c7bbbce48591a1e957f26fef74c6e7f13001caeafbc2bc7e851608','ZCFORMVIEW',false,'light',false,'0')"
-    ></script>
+    <!--Zoho Scripts-->
+    <script type="text/javascript" src="https://zcv2-zcmp.maillist-manage.eu/js/optin.min.js" onload="setupSF('sf3z28ed333ab4c7bbbce48591a1e957f26fef74c6e7f13001caeafbc2bc7e851608','ZCFORMVIEW',false,'light',false,'0')"></script>
     <script type="text/javascript">
       function runOnFormSubmit_sf3z28ed333ab4c7bbbce48591a1e957f26fef74c6e7f13001caeafbc2bc7e851608(th){
         // Optional: Trigger your own event before form submission
@@ -197,40 +222,40 @@
     </script>
 
     <!-- FOOTER -->
-  <footer class="relative z-20 w-full flex flex-col items-center justify-center px-6 py-6 md:py-8">
-    <div class="grid grid-cols-2 gap-6 w-full max-w-md lg:grid-cols-4 lg:max-w-3xl">
+    <footer class="relative z-20 w-full flex flex-col items-center justify-center px-6 py-6 md:py-8">
+      <div class="grid grid-cols-2 gap-6 w-full max-w-md lg:grid-cols-4 lg:max-w-3xl">
 
-      <!-- GoFundMe -->
-      <a href="https://gofund.me/d61ec0aa" class="flex items-center space-x-2 justify-center text-material-110 transition-colors duration-200 ease-in-out hover:text-green-70">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M15 11C15 11.5523 15.4477 12 16 12C16.5523 12 17 11.5523 17 11V9C17 8.44771 16.5523 8 16 8C15.4477 8 15 8.44772 15 9V11ZM16 16C14.0934 16 12.364 16.762 11.1008 18L20.8992 18C19.636 16.762 17.9066 16 16 16ZM16 14C12.8783 14 10.1289 15.5898 8.5157 18H5C4.44772 18 4 18.4477 4 19C4 19.5523 4.44772 20 5 20L27 20C27.5523 20 28 19.5523 28 19C28 18.4477 27.5523 18 27 18H23.4843C21.8711 15.5898 19.1217 14 16 14ZM22.2929 14.1214C21.9024 13.7309 21.9024 13.0977 22.2929 12.7072L23.7071 11.293C24.0977 10.9025 24.7308 10.9025 25.1213 11.293C25.5119 11.6835 25.5119 12.3167 25.1213 12.7072L23.7071 14.1214C23.3166 14.5119 22.6834 14.5119 22.2929 14.1214ZM8.70708 14.1215C9.0976 14.512 9.73077 14.512 10.1213 14.1215C10.5118 13.731 10.5118 13.0978 10.1213 12.7073L8.70708 11.2931C8.31655 10.9026 7.68339 10.9026 7.29286 11.2931C6.90234 11.6836 6.90234 12.3168 7.29286 12.7073L8.70708 14.1215Z"/>
-        </svg>
-        <span class="text-sm">GoFundMe</span>
-      </a>
-      <!-- Discord -->
-      <a href="https://discord.gg/pfjngsqk" class="flex items-center space-x-2 justify-center text-material-110 transition-colors duration-200 ease-in-out hover:text-purple-70">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
-          <path d="M13 17.4999C13 17.7966 12.912 18.0866 12.7472 18.3332C12.5824 18.5799 12.3481 18.7722 12.074 18.8857C11.7999 18.9992 11.4983 19.0289 11.2074 18.9711C10.9164 18.9132 10.6491 18.7703 10.4393 18.5606C10.2296 18.3508 10.0867 18.0835 10.0288 17.7925C9.97095 17.5016 10.0007 17.2 10.1142 16.9259C10.2277 16.6518 10.42 16.4175 10.6667 16.2527C10.9133 16.0879 11.2033 15.9999 11.5 15.9999C11.8978 15.9999 12.2794 16.1579 12.5607 16.4392C12.842 16.7205 13 17.1021 13 17.4999ZM20.5 15.9999C20.2033 15.9999 19.9133 16.0879 19.6667 16.2527C19.42 16.4175 19.2277 16.6518 19.1142 16.9259C19.0007 17.2 18.971 17.5016 19.0288 17.7925C19.0867 18.0835 19.2296 18.3508 19.4394 18.5606C19.6491 18.7703 19.9164 18.9132 20.2074 18.9711C20.4983 19.0289 20.7999 18.9992 21.074 18.8857C21.3481 18.7722 21.5824 18.5799 21.7472 18.3332C21.912 18.0866 22 17.7966 22 17.4999C22 17.1021 21.842 16.7205 21.5607 16.4392C21.2794 16.1579 20.8978 15.9999 20.5 15.9999ZM29.8063 24.1124L21.4313 27.8261C21.1794 27.9381 20.9074 27.9974 20.6318 28.0003C20.3562 28.0033 20.083 27.9498 19.8288 27.8433C19.5746 27.7368 19.3449 27.5794 19.1538 27.3808C18.9627 27.1822 18.8142 26.9467 18.7175 26.6886L17.7038 23.9386C17.1438 23.9761 16.5758 23.9953 16 23.9961C15.4242 23.997 14.8563 23.9778 14.2963 23.9386L13.2825 26.6886C13.1856 26.9466 13.0371 27.182 12.8459 27.3805C12.6548 27.5789 12.4251 27.7363 12.171 27.8428C11.9169 27.9493 11.6437 28.0028 11.3682 27.9999C11.0926 27.997 10.8206 27.9379 10.5688 27.8261L2.19376 24.1124C1.76149 23.9234 1.41037 23.5871 1.20296 23.1633C0.995558 22.7396 0.94534 22.256 1.06126 21.7986L4.75001 7.24989C4.84736 6.87153 5.05293 6.52976 5.34156 6.26645C5.63018 6.00314 5.98932 5.8297 6.37501 5.76739L10.8825 5.02614C11.3794 4.94622 11.8883 5.05397 12.3102 5.32844C12.732 5.60291 13.0367 6.02447 13.165 6.51114L13.5725 8.11614C14.3667 8.03864 15.1758 7.99989 16 7.99989C16.8242 7.99989 17.6325 8.03864 18.425 8.11614L18.8325 6.51114C18.9605 6.02432 19.2652 5.60258 19.6871 5.32807C20.1091 5.05356 20.6181 4.94593 21.115 5.02614L25.625 5.76739C26.0107 5.8297 26.3698 6.00314 26.6585 6.26645C26.9471 6.52976 27.1527 6.87153 27.25 7.24989L30.9413 21.7974C31.0573 22.2552 31.0069 22.7393 30.799 23.1634C30.5911 23.5874 30.2392 23.9238 29.8063 24.1124ZM29 22.2849L25.3088 7.74989C25.3088 7.74989 25.3088 7.74989 25.2988 7.74989L20.7913 6.99989C20.788 6.99803 20.7844 6.99704 20.7806 6.99704C20.7769 6.99704 20.7732 6.99803 20.77 6.99989L20.4163 8.39239C21.0413 8.50989 21.6663 8.64989 22.27 8.81989C22.508 8.88057 22.7154 9.02673 22.8526 9.2305C22.9897 9.43428 23.0471 9.68141 23.0137 9.92478C22.9804 10.1681 22.8586 10.3907 22.6716 10.55C22.4846 10.7094 22.2456 10.7943 22 10.7886C21.9087 10.7884 21.8179 10.7758 21.73 10.7511C19.8624 10.2444 17.9351 9.99168 16 9.99989C14.065 9.99127 12.1376 10.2435 10.27 10.7499C10.1424 10.7893 10.0082 10.8028 9.87536 10.7896C9.74248 10.7763 9.61361 10.7366 9.49633 10.6727C9.37906 10.6088 9.27577 10.5221 9.19255 10.4177C9.10934 10.3132 9.04788 10.1932 9.01182 10.0646C8.97575 9.93602 8.9658 9.80153 8.98255 9.66904C8.9993 9.53656 9.04242 9.40877 9.10936 9.29322C9.1763 9.17768 9.26571 9.0767 9.37231 8.99627C9.4789 8.91583 9.60053 8.85756 9.73001 8.82489C10.3325 8.65489 10.9525 8.51489 11.5825 8.39739L11.2288 6.99989C11.2288 6.99989 11.2288 6.99989 11.2138 6.99989L6.70126 7.74114C6.69758 7.74013 6.69369 7.74013 6.69001 7.74114L3.00001 22.2911L11.375 25.9999C11.3792 26.0022 11.384 26.0034 11.3888 26.0034C11.3936 26.0034 11.3983 26.0022 11.4025 25.9999L12.25 23.7149C11.4009 23.585 10.5602 23.4047 9.73251 23.1749C9.48597 23.0961 9.27958 22.9248 9.15672 22.697C9.03387 22.4692 9.00411 22.2027 9.07371 21.9534C9.14332 21.7041 9.30686 21.4915 9.52996 21.3603C9.75305 21.2291 10.0183 21.1896 10.27 21.2499C12.1375 21.7568 14.0649 22.0091 16 21.9999C17.9351 22.0091 19.8625 21.7568 21.73 21.2499C21.9854 21.1783 22.2589 21.2111 22.4901 21.3411C22.7214 21.4711 22.8915 21.6876 22.9631 21.943C23.0347 22.1985 23.0019 22.4719 22.872 22.7031C22.742 22.9344 22.5254 23.1045 22.27 23.1761C21.4415 23.4056 20.6 23.5855 19.75 23.7149L20.5938 25.9999C20.5978 26.0021 20.6023 26.0032 20.6069 26.0032C20.6115 26.0032 20.616 26.0021 20.62 25.9999L29 22.2849Z"/>
-        </svg>
-        <span class="text-sm">Discord</span>
-      </a>
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/_piercewoods/" class="flex items-center space-x-2 justify-center text-material-110 transition-colors duration-200 ease-in-out hover:text-pink-70">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
-          <path d="M16 10C14.8133 10 13.6533 10.3519 12.6666 11.0112C11.6799 11.6705 10.9108 12.6075 10.4567 13.7039C10.0026 14.8003 9.88378 16.0067 10.1153 17.1705C10.3468 18.3344 10.9182 19.4035 11.7574 20.2426C12.5965 21.0818 13.6656 21.6532 14.8295 21.8847C15.9933 22.1162 17.1997 21.9974 18.2961 21.5433C19.3925 21.0892 20.3295 20.3201 20.9888 19.3334C21.6481 18.3467 22 17.1867 22 16C21.9983 14.4092 21.3657 12.884 20.2408 11.7592C19.116 10.6343 17.5908 10.0017 16 10ZM16 20C15.2089 20 14.4355 19.7654 13.7777 19.3259C13.1199 18.8864 12.6072 18.2616 12.3045 17.5307C12.0017 16.7998 11.9225 15.9956 12.0769 15.2196C12.2312 14.4437 12.6122 13.731 13.1716 13.1716C13.731 12.6122 14.4437 12.2312 15.2196 12.0769C15.9956 11.9225 16.7998 12.0017 17.5307 12.3045C18.2616 12.6072 18.8864 13.1199 19.3259 13.7777C19.7654 14.4355 20 15.2089 20 16C20 17.0609 19.5786 18.0783 18.8284 18.8284C18.0783 19.5786 17.0609 20 16 20ZM22 3H10C8.14409 3.00199 6.36477 3.74012 5.05245 5.05245C3.74012 6.36477 3.00199 8.14409 3 10V22C3.00199 23.8559 3.74012 25.6352 5.05245 26.9476C6.36477 28.2599 8.14409 28.998 10 29H22C23.8559 28.998 25.6352 28.2599 26.9476 26.9476C28.2599 25.6352 28.998 23.8559 29 22V10C28.998 8.14409 28.2599 6.36477 26.9476 5.05245C25.6352 3.74012 23.8559 3.00199 22 3ZM27 22C27 23.3261 26.4732 24.5979 25.5355 25.5355C24.5979 26.4732 23.3261 27 22 27H10C8.67392 27 7.40215 26.4732 6.46447 25.5355C5.52678 24.5979 5 23.3261 5 22V10C5 8.67392 5.52678 7.40215 6.46447 6.46447C7.40215 5.52678 8.67392 5 10 5H22C23.3261 5 24.5979 5.52678 25.5355 6.46447C26.4732 7.40215 27 8.67392 27 10V22ZM24 9.5C24 9.79667 23.912 10.0867 23.7472 10.3334C23.5824 10.58 23.3481 10.7723 23.074 10.8858C22.7999 10.9994 22.4983 11.0291 22.2074 10.9712C21.9164 10.9133 21.6491 10.7704 21.4393 10.5607C21.2296 10.3509 21.0867 10.0836 21.0288 9.79264C20.9709 9.50166 21.0007 9.20006 21.1142 8.92597C21.2277 8.65189 21.42 8.41762 21.6666 8.2528C21.9133 8.08797 22.2033 8 22.5 8C22.8978 8 23.2794 8.15804 23.5607 8.43934C23.842 8.72064 24 9.10218 24 9.5Z"/>
-        </svg>
-        <span class="text-sm">Instagram</span>
-      </a>
-      <!-- YouTube -->
-      <a href="https://www.youtube.com/channel/UCWrFoBNEOcxhs5hKvaYf-GQ" class="flex items-center space-x-2 justify-center text-material-110 transition-colors duration-200 ease-in-out hover:text-red-70">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
-          <path d="M20.555 15.1675L14.555 11.1675C14.4044 11.067 14.2293 11.0093 14.0484 11.0005C13.8675 10.9918 13.6877 11.0323 13.528 11.1177C13.3684 11.2032 13.2349 11.3304 13.1419 11.4858C13.0489 11.6412 12.9999 11.8189 13 12V20C12.9999 20.1811 13.0489 20.3588 13.1419 20.5142C13.2349 20.6696 13.3684 20.7968 13.528 20.8823C13.6877 20.9677 13.8675 21.0082 14.0484 20.9995C14.2293 20.9907 14.4044 20.933 14.555 20.8325L20.555 16.8325C20.6922 16.7412 20.8047 16.6175 20.8825 16.4722C20.9603 16.327 21.001 16.1648 21.001 16C21.001 15.8352 20.9603 15.673 20.8825 15.5278C20.8047 15.3826 20.6922 15.2588 20.555 15.1675ZM15 18.1313V13.875L18.1975 16L15 18.1313ZM29.2913 8.69C29.1735 8.22919 28.9478 7.80298 28.6329 7.44654C28.318 7.09011 27.9228 6.81366 27.48 6.64C23.195 4.985 16.375 5 16 5C15.625 5 8.805 4.985 4.52 6.64C4.0772 6.81366 3.68204 7.09011 3.36712 7.44654C3.05219 7.80298 2.82653 8.22919 2.70875 8.69C2.385 9.9375 2 12.2175 2 16C2 19.7825 2.385 22.0625 2.70875 23.31C2.82636 23.771 3.05194 24.1975 3.36687 24.5542C3.68181 24.9108 4.07706 25.1875 4.52 25.3613C8.625 26.945 15.05 27 15.9175 27H16.0825C16.95 27 23.3787 26.945 27.48 25.3613C27.9229 25.1875 28.3182 24.9108 28.6331 24.5542C28.9481 24.1975 29.1736 23.771 29.2913 23.31C29.615 22.06 30 19.7825 30 16C30 12.2175 29.615 9.9375 29.2913 8.69ZM27.355 22.815C27.3169 22.9684 27.243 23.1105 27.1394 23.2298C27.0357 23.3491 26.9053 23.4421 26.7588 23.5013C22.8025 25.0288 16.0738 25.0013 16.0088 25.0013H16C15.9325 25.0013 9.20875 25.0263 5.25 23.5013C5.10346 23.4421 4.97303 23.3491 4.86938 23.2298C4.76574 23.1105 4.69185 22.9684 4.65375 22.815C4.35 21.6738 4 19.5713 4 16C4 12.4288 4.35 10.3263 4.645 9.19125C4.68239 9.03698 4.75596 8.89382 4.85965 8.77362C4.96333 8.65342 5.09413 8.55963 5.24125 8.5C9.05625 7.02625 15.4487 7 15.9725 7H16.0063C16.0738 7 22.8038 6.9775 26.7563 8.5C26.9028 8.55915 27.0332 8.65217 27.1369 8.77146C27.2405 8.89074 27.3144 9.03289 27.3525 9.18625C27.65 10.3263 28 12.4288 28 16C28 19.5713 27.65 21.6738 27.355 22.8088V22.815Z"/>
-        </svg>
-        <span class="text-sm">YouTube</span>
-      </a>
+        <!-- GoFundMe -->
+        <a href="https://gofund.me/d61ec0aa" class="flex items-center space-x-2 justify-center text-material-110 transition-colors duration-200 ease-in-out hover:text-green-70">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 11C15 11.5523 15.4477 12 16 12C16.5523 12 17 11.5523 17 11V9C17 8.44771 16.5523 8 16 8C15.4477 8 15 8.44772 15 9V11ZM16 16C14.0934 16 12.364 16.762 11.1008 18L20.8992 18C19.636 16.762 17.9066 16 16 16ZM16 14C12.8783 14 10.1289 15.5898 8.5157 18H5C4.44772 18 4 18.4477 4 19C4 19.5523 4.44772 20 5 20L27 20C27.5523 20 28 19.5523 28 19C28 18.4477 27.5523 18 27 18H23.4843C21.8711 15.5898 19.1217 14 16 14ZM22.2929 14.1214C21.9024 13.7309 21.9024 13.0977 22.2929 12.7072L23.7071 11.293C24.0977 10.9025 24.7308 10.9025 25.1213 11.293C25.5119 11.6835 25.5119 12.3167 25.1213 12.7072L23.7071 14.1214C23.3166 14.5119 22.6834 14.5119 22.2929 14.1214ZM8.70708 14.1215C9.0976 14.512 9.73077 14.512 10.1213 14.1215C10.5118 13.731 10.5118 13.0978 10.1213 12.7073L8.70708 11.2931C8.31655 10.9026 7.68339 10.9026 7.29286 11.2931C6.90234 11.6836 6.90234 12.3168 7.29286 12.7073L8.70708 14.1215Z"/>
+          </svg>
+          <span class="text-sm">GoFundMe</span>
+        </a>
+        <!-- Discord -->
+        <a href="https://discord.gg/pfjngsqk" class="flex items-center space-x-2 justify-center text-material-110 transition-colors duration-200 ease-in-out hover:text-purple-70">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
+            <path d="M13 17.4999C13 17.7966 12.912 18.0866 12.7472 18.3332C12.5824 18.5799 12.3481 18.7722 12.074 18.8857C11.7999 18.9992 11.4983 19.0289 11.2074 18.9711C10.9164 18.9132 10.6491 18.7703 10.4393 18.5606C10.2296 18.3508 10.0867 18.0835 10.0288 17.7925C9.97095 17.5016 10.0007 17.2 10.1142 16.9259C10.2277 16.6518 10.42 16.4175 10.6667 16.2527C10.9133 16.0879 11.2033 15.9999 11.5 15.9999C11.8978 15.9999 12.2794 16.1579 12.5607 16.4392C12.842 16.7205 13 17.1021 13 17.4999ZM20.5 15.9999C20.2033 15.9999 19.9133 16.0879 19.6667 16.2527C19.42 16.4175 19.2277 16.6518 19.1142 16.9259C19.0007 17.2 18.971 17.5016 19.0288 17.7925C19.0867 18.0835 19.2296 18.3508 19.4394 18.5606C19.6491 18.7703 19.9164 18.9132 20.2074 18.9711C20.4983 19.0289 20.7999 18.9992 21.074 18.8857C21.3481 18.7722 21.5824 18.5799 21.7472 18.3332C21.912 18.0866 22 17.7966 22 17.4999C22 17.1021 21.842 16.7205 21.5607 16.4392C21.2794 16.1579 20.8978 15.9999 20.5 15.9999ZM29.8063 24.1124L21.4313 27.8261C21.1794 27.9381 20.9074 27.9974 20.6318 28.0003C20.3562 28.0033 20.083 27.9498 19.8288 27.8433C19.5746 27.7368 19.3449 27.5794 19.1538 27.3808C18.9627 27.1822 18.8142 26.9467 18.7175 26.6886L17.7038 23.9386C17.1438 23.9761 16.5758 23.9953 16 23.9961C15.4242 23.997 14.8563 23.9778 14.2963 23.9386L13.2825 26.6886C13.1856 26.9466 13.0371 27.182 12.8459 27.3805C12.6548 27.5789 12.4251 27.7363 12.171 27.8428C11.9169 27.9493 11.6437 28.0028 11.3682 27.9999C11.0926 27.997 10.8206 27.9379 10.5688 27.8261L2.19376 24.1124C1.76149 23.9234 1.41037 23.5871 1.20296 23.1633C0.995558 22.7396 0.94534 22.256 1.06126 21.7986L4.75001 7.24989C4.84736 6.87153 5.05293 6.52976 5.34156 6.26645C5.63018 6.00314 5.98932 5.8297 6.37501 5.76739L10.8825 5.02614C11.3794 4.94622 11.8883 5.05397 12.3102 5.32844C12.732 5.60291 13.0367 6.02447 13.165 6.51114L13.5725 8.11614C14.3667 8.03864 15.1758 7.99989 16 7.99989C16.8242 7.99989 17.6325 8.03864 18.425 8.11614L18.8325 6.51114C18.9605 6.02432 19.2652 5.60258 19.6871 5.32807C20.1091 5.05356 20.6181 4.94593 21.115 5.02614L25.625 5.76739C26.0107 5.8297 26.3698 6.00314 26.6585 6.26645C26.9471 6.52976 27.1527 6.87153 27.25 7.24989L30.9413 21.7974C31.0573 22.2552 31.0069 22.7393 30.799 23.1634C30.5911 23.5874 30.2392 23.9238 29.8063 24.1124ZM29 22.2849L25.3088 7.74989C25.3088 7.74989 25.3088 7.74989 25.2988 7.74989L20.7913 6.99989C20.788 6.99803 20.7844 6.99704 20.7806 6.99704C20.7769 6.99704 20.7732 6.99803 20.77 6.99989L20.4163 8.39239C21.0413 8.50989 21.6663 8.64989 22.27 8.81989C22.508 8.88057 22.7154 9.02673 22.8526 9.2305C22.9897 9.43428 23.0471 9.68141 23.0137 9.92478C22.9804 10.1681 22.8586 10.3907 22.6716 10.55C22.4846 10.7094 22.2456 10.7943 22 10.7886C21.9087 10.7884 21.8179 10.7758 21.73 10.7511C19.8624 10.2444 17.9351 9.99168 16 9.99989C14.065 9.99127 12.1376 10.2435 10.27 10.7499C10.1424 10.7893 10.0082 10.8028 9.87536 10.7896C9.74248 10.7763 9.61361 10.7366 9.49633 10.6727C9.37906 10.6088 9.27577 10.5221 9.19255 10.4177C9.10934 10.3132 9.04788 10.1932 9.01182 10.0646C8.97575 9.93602 8.9658 9.80153 8.98255 9.66904C8.9993 9.53656 9.04242 9.40877 9.10936 9.29322C9.1763 9.17768 9.26571 9.0767 9.37231 8.99627C9.4789 8.91583 9.60053 8.85756 9.73001 8.82489C10.3325 8.65489 10.9525 8.51489 11.5825 8.39739L11.2288 6.99989C11.2288 6.99989 11.2288 6.99989 11.2138 6.99989L6.70126 7.74114C6.69758 7.74013 6.69369 7.74013 6.69001 7.74114L3.00001 22.2911L11.375 25.9999C11.3792 26.0022 11.384 26.0034 11.3888 26.0034C11.3936 26.0034 11.3983 26.0022 11.4025 25.9999L12.25 23.7149C11.4009 23.585 10.5602 23.4047 9.73251 23.1749C9.48597 23.0961 9.27958 22.9248 9.15672 22.697C9.03387 22.4692 9.00411 22.2027 9.07371 21.9534C9.14332 21.7041 9.30686 21.4915 9.52996 21.3603C9.75305 21.2291 10.0183 21.1896 10.27 21.2499C12.1375 21.7568 14.0649 22.0091 16 21.9999C17.9351 22.0091 19.8625 21.7568 21.73 21.2499C21.9854 21.1783 22.2589 21.2111 22.4901 21.3411C22.7214 21.4711 22.8915 21.6876 22.9631 21.943C23.0347 22.1985 23.0019 22.4719 22.872 22.7031C22.742 22.9344 22.5254 23.1045 22.27 23.1761C21.4415 23.4056 20.6 23.5855 19.75 23.7149L20.5938 25.9999C20.5978 26.0021 20.6023 26.0032 20.6069 26.0032C20.6115 26.0032 20.616 26.0021 20.62 25.9999L29 22.2849Z"/>
+          </svg>
+          <span class="text-sm">Discord</span>
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/_piercewoods/" class="flex items-center space-x-2 justify-center text-material-110 transition-colors duration-200 ease-in-out hover:text-pink-70">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
+            <path d="M16 10C14.8133 10 13.6533 10.3519 12.6666 11.0112C11.6799 11.6705 10.9108 12.6075 10.4567 13.7039C10.0026 14.8003 9.88378 16.0067 10.1153 17.1705C10.3468 18.3344 10.9182 19.4035 11.7574 20.2426C12.5965 21.0818 13.6656 21.6532 14.8295 21.8847C15.9933 22.1162 17.1997 21.9974 18.2961 21.5433C19.3925 21.0892 20.3295 20.3201 20.9888 19.3334C21.6481 18.3467 22 17.1867 22 16C21.9983 14.4092 21.3657 12.884 20.2408 11.7592C19.116 10.6343 17.5908 10.0017 16 10ZM16 20C15.2089 20 14.4355 19.7654 13.7777 19.3259C13.1199 18.8864 12.6072 18.2616 12.3045 17.5307C12.0017 16.7998 11.9225 15.9956 12.0769 15.2196C12.2312 14.4437 12.6122 13.731 13.1716 13.1716C13.731 12.6122 14.4437 12.2312 15.2196 12.0769C15.9956 11.9225 16.7998 12.0017 17.5307 12.3045C18.2616 12.6072 18.8864 13.1199 19.3259 13.7777C19.7654 14.4355 20 15.2089 20 16C20 17.0609 19.5786 18.0783 18.8284 18.8284C18.0783 19.5786 17.0609 20 16 20ZM22 3H10C8.14409 3.00199 6.36477 3.74012 5.05245 5.05245C3.74012 6.36477 3.00199 8.14409 3 10V22C3.00199 23.8559 3.74012 25.6352 5.05245 26.9476C6.36477 28.2599 8.14409 28.998 10 29H22C23.8559 28.998 25.6352 28.2599 26.9476 26.9476C28.2599 25.6352 28.998 23.8559 29 22V10C28.998 8.14409 28.2599 6.36477 26.9476 5.05245C25.6352 3.74012 23.8559 3.00199 22 3ZM27 22C27 23.3261 26.4732 24.5979 25.5355 25.5355C24.5979 26.4732 23.3261 27 22 27H10C8.67392 27 7.40215 26.4732 6.46447 25.5355C5.52678 24.5979 5 23.3261 5 22V10C5 8.67392 5.52678 7.40215 6.46447 6.46447C7.40215 5.52678 8.67392 5 10 5H22C23.3261 5 24.5979 5.52678 25.5355 6.46447C26.4732 7.40215 27 8.67392 27 10V22ZM24 9.5C24 9.79667 23.912 10.0867 23.7472 10.3334C23.5824 10.58 23.3481 10.7723 23.074 10.8858C22.7999 10.9994 22.4983 11.0291 22.2074 10.9712C21.9164 10.9133 21.6491 10.7704 21.4393 10.5607C21.2296 10.3509 21.0867 10.0836 21.0288 9.79264C20.9709 9.50166 21.0007 9.20006 21.1142 8.92597C21.2277 8.65189 21.42 8.41762 21.6666 8.2528C21.9133 8.08797 22.2033 8 22.5 8C22.8978 8 23.2794 8.15804 23.5607 8.43934C23.842 8.72064 24 9.10218 24 9.5Z"/>
+          </svg>
+          <span class="text-sm">Instagram</span>
+        </a>
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/channel/UCWrFoBNEOcxhs5hKvaYf-GQ" class="flex items-center space-x-2 justify-center text-material-110 transition-colors duration-200 ease-in-out hover:text-red-70">
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
+            <path d="M20.555 15.1675L14.555 11.1675C14.4044 11.067 14.2293 11.0093 14.0484 11.0005C13.8675 10.9918 13.6877 11.0323 13.528 11.1177C13.3684 11.2032 13.2349 11.3304 13.1419 11.4858C13.0489 11.6412 12.9999 11.8189 13 12V20C12.9999 20.1811 13.0489 20.3588 13.1419 20.5142C13.2349 20.6696 13.3684 20.7968 13.528 20.8823C13.6877 20.9677 13.8675 21.0082 14.0484 20.9995C14.2293 20.9907 14.4044 20.933 14.555 20.8325L20.555 16.8325C20.6922 16.7412 20.8047 16.6175 20.8825 16.4722C20.9603 16.327 21.001 16.1648 21.001 16C21.001 15.8352 20.9603 15.673 20.8825 15.5278C20.8047 15.3826 20.6922 15.2588 20.555 15.1675ZM15 18.1313V13.875L18.1975 16L15 18.1313ZM29.2913 8.69C29.1735 8.22919 28.9478 7.80298 28.6329 7.44654C28.318 7.09011 27.9228 6.81366 27.48 6.64C23.195 4.985 16.375 5 16 5C15.625 5 8.805 4.985 4.52 6.64C4.0772 6.81366 3.68204 7.09011 3.36712 7.44654C3.05219 7.80298 2.82653 8.22919 2.70875 8.69C2.385 9.9375 2 12.2175 2 16C2 19.7825 2.385 22.0625 2.70875 23.31C2.82636 23.771 3.05194 24.1975 3.36687 24.5542C3.68181 24.9108 4.07706 25.1875 4.52 25.3613C8.625 26.945 15.05 27 15.9175 27H16.0825C16.95 27 23.3787 26.945 27.48 25.3613C27.9229 25.1875 28.3182 24.9108 28.6331 24.5542C28.9481 24.1975 29.1736 23.771 29.2913 23.31C29.615 22.06 30 19.7825 30 16C30 12.2175 29.615 9.9375 29.2913 8.69ZM27.355 22.815C27.3169 22.9684 27.243 23.1105 27.1394 23.2298C27.0357 23.3491 26.9053 23.4421 26.7588 23.5013C22.8025 25.0288 16.0738 25.0013 16.0088 25.0013H16C15.9325 25.0013 9.20875 25.0263 5.25 23.5013C5.10346 23.4421 4.97303 23.3491 4.86938 23.2298C4.76574 23.1105 4.69185 22.9684 4.65375 22.815C4.35 21.6738 4 19.5713 4 16C4 12.4288 4.35 10.3263 4.645 9.19125C4.68239 9.03698 4.75596 8.89382 4.85965 8.77362C4.96333 8.65342 5.09413 8.55963 5.24125 8.5C9.05625 7.02625 15.4487 7 15.9725 7H16.0063C16.0738 7 22.8038 6.9775 26.7563 8.5C26.9028 8.55915 27.0332 8.65217 27.1369 8.77146C27.2405 8.89074 27.3144 9.03289 27.3525 9.18625C27.65 10.3263 28 12.4288 28 16C28 19.5713 27.65 21.6738 27.355 22.8088V22.815Z"/>
+          </svg>
+          <span class="text-sm">YouTube</span>
+        </a>
 
-    </div>
-  </footer>
+      </div>
+    </footer>
   </div>
 </body>
 </html>
